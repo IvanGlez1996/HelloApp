@@ -58,6 +58,7 @@ public class ByePresenter extends GenericPresenter
 
       checkToolbarVisibility();
       checkTextVisibility();
+      checkProgressBarVisibility();
 
       if (buttonClicked) {
         getView().setText(getModel().getText());
