@@ -1,4 +1,4 @@
-package es.ulpgc.eite.clean.mvp.dummy.hello;
+package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,43 +9,42 @@ import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.dummy.R;
-import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
 
-public class HelloView
-    extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
-    implements Hello.PresenterToView {
+public class ByeView
+    extends GenericActivity<Bye.PresenterToView, Bye.ViewToPresenter, ByePresenter>
+    implements Bye.PresenterToView {
 
   private Toolbar toolbar;
-  private Button sayHelloBtn;
-  private Button goToByeButton;
+  private Button sayByeButton;
+  private Button backToHelloButton;
   private ProgressBar progressBar;
   private TextView text;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_hello);
+    setContentView(R.layout.activity_bye);
 
-    text = (TextView) findViewById(R.id.helloMsg);
+    text = (TextView) findViewById(R.id.byeMsg);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    progressBar = (ProgressBar) findViewById(R.id.progressHello);
+    progressBar = (ProgressBar) findViewById(R.id.progressBye);
 
-    sayHelloBtn = (Button) findViewById(R.id.sayHelloBtn);
-    sayHelloBtn.setOnClickListener(new View.OnClickListener() {
+    sayByeButton = (Button) findViewById(R.id.sayByeBtn);
+    sayByeButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-              getPresenter().onSayHelloBtnClicked();
+              getPresenter().onSayByeBtnClicked();
       }
     });
 
-    goToByeButton = (Button) findViewById(R.id.goToByeBtn);
-    goToByeButton.setOnClickListener(new View.OnClickListener() {
+    backToHelloButton = (Button) findViewById(R.id.backToHelloBtn);
+    backToHelloButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        getPresenter().onGoToByeBtnClicked();
+        getPresenter().onBackToHelloBtnClicked();
       }
     });
   }
@@ -56,7 +55,7 @@ public class HelloView
    */
   @Override
   protected void onResume() {
-    super.onResume(HelloPresenter.class, this);
+    super.onResume(ByePresenter.class, this);
   }
 
   /*
@@ -123,12 +122,12 @@ public class HelloView
   }
 
   @Override
-  public void setSayHelloLabel(String txt) {
-    sayHelloBtn.setText(txt);
+  public void setSayByeLabel(String txt) {
+    sayByeButton.setText(txt);
   }
 
   @Override
-  public void setGoToByeLabel(String txt) {
-    goToByeButton.setText(txt);
+  public void setBackToHelloLabel(String txt) {
+    backToHelloButton.setText(txt);
   }
 }

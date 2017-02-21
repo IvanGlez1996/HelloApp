@@ -1,4 +1,4 @@
-package es.ulpgc.eite.clean.mvp.dummy.hello;
+package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 
 import android.content.Context;
@@ -7,14 +7,12 @@ import android.util.Log;
 import es.ulpgc.eite.clean.mvp.ContextView;
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.GenericPresenter;
-import es.ulpgc.eite.clean.mvp.dummy.app.App;
 import es.ulpgc.eite.clean.mvp.dummy.app.Mediator;
 import es.ulpgc.eite.clean.mvp.dummy.app.Navigator;
-import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
 
-public class HelloPresenter extends GenericPresenter
-    <Hello.PresenterToView, Hello.PresenterToModel, Hello.ModelToPresenter, HelloModel>
-    implements Hello.ViewToPresenter, Hello.ModelToPresenter, Hello.HelloTo, Hello.ToHello {
+public class ByePresenter extends GenericPresenter
+    <Bye.PresenterToView, Bye.PresenterToModel, Bye.ModelToPresenter, ByeModel>
+    implements Bye.ViewToPresenter, Bye.ModelToPresenter, Bye.ByeTo, Bye.ToBye {
 
 
   private boolean toolbarVisible;
@@ -31,14 +29,15 @@ public class HelloPresenter extends GenericPresenter
    * @param view The current VIEW instance
    */
   @Override
-  public void onCreate(Hello.PresenterToView view) {
-    super.onCreate(es.ulpgc.eite.clean.mvp.dummy.hello.HelloModel.class, this);
+  public void onCreate(Bye.PresenterToView view) {
+    super.onCreate(ByeModel.class, this);
     setView(view);
     Log.d(TAG, "calling onCreate()");
 
     Log.d(TAG, "calling startingHelloScreen()");
     Mediator app = (Mediator) getView().getApplication();
-    app.startingHelloScreen(this);
+    app.startingByeScreen(this);
+
   }
 
   /**
@@ -49,13 +48,13 @@ public class HelloPresenter extends GenericPresenter
    * @param view The current VIEW instance
    */
   @Override
-  public void onResume(Hello.PresenterToView view) {
+  public void onResume(Bye.PresenterToView view) {
     setView(view);
     Log.d(TAG, "calling onResume()");
 
     if(configurationChangeOccurred()) {
-      getView().setSayHelloLabel(getModel().getSayHelloLabel());
-      getView().setGoToByeLabel(getModel().getGoToByeLabel());
+      getView().setSayByeLabel(getModel().getSayByeLabel());
+      getView().setBackToHelloLabel(getModel().getBackToHelloLabel());
 
       checkToolbarVisibility();
       checkTextVisibility();
@@ -94,7 +93,7 @@ public class HelloPresenter extends GenericPresenter
   // View To Presenter /////////////////////////////////////////////////////////////
 
   @Override
-  public void onSayHelloBtnClicked() {
+  public void onSayByeBtnClicked() {
     Log.d(TAG, "calling onSayHelloBtnClicked()");
     if(isViewRunning()) {
       getView().setText(getModel().getText());
@@ -107,10 +106,10 @@ public class HelloPresenter extends GenericPresenter
   }
 
   @Override
-  public void onGoToByeBtnClicked() {
+  public void onBackToHelloBtnClicked() {
     Log.d(TAG, "calling onGoToByeBtnClicked()");
     Navigator app = (Navigator) getView().getApplication();
-    app.goToByeScreen(this);
+    app.goToHelloScreen(this);
   }
 
 
@@ -121,8 +120,8 @@ public class HelloPresenter extends GenericPresenter
   public void onScreenStarted() {
     Log.d(TAG, "calling onScreenStarted()");
     if(isViewRunning()) {
-      getView().setSayHelloLabel(getModel().getSayHelloLabel());
-      getView().setGoToByeLabel(getModel().getGoToByeLabel());
+      getView().setSayByeLabel(getModel().getSayByeLabel());
+      getView().setBackToHelloLabel(getModel().getBackToHelloLabel());
     }
     checkToolbarVisibility();
     checkTextVisibility();

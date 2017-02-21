@@ -22,7 +22,7 @@ public class DummyModel extends GenericModel<Dummy.ModelToPresenter>
     super.onCreate(presenter);
 
     dummyLabel = "Click Me!";
-    dummyText = "Hello World!";
+    dummyText = "Bye World!";
   }
 
   /**

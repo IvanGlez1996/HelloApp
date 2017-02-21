@@ -1,16 +1,14 @@
-package es.ulpgc.eite.clean.mvp.dummy.hello;
+package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 import es.ulpgc.eite.clean.mvp.GenericModel;
-import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
 
 
-public class HelloModel extends GenericModel<Hello.ModelToPresenter>
-    implements Hello.PresenterToModel {
+public class ByeModel extends GenericModel<Bye.ModelToPresenter>
+    implements Bye.PresenterToModel {
 
-  private String helloText;
-  private String sayHelloLabel;
-  private String goToByeLabel;
-  private String msgText;
+  private String byeText;
+  private String sayByeLabel;
+  private String backToHelloLabel;
 
   /**
    * Method that recovers a reference to the PRESENTER
@@ -19,12 +17,12 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
    * @param presenter Presenter interface
    */
   @Override
-  public void onCreate(Hello.ModelToPresenter presenter) {
+  public void onCreate(Bye.ModelToPresenter presenter) {
     super.onCreate(presenter);
 
-    sayHelloLabel = "Say Hello";
-    goToByeLabel = "Go to Bye";
-    helloText = "Hello World!";
+    sayByeLabel = "Say Bye";
+    backToHelloLabel = "Back to Hello";
+    byeText = "Bye World!";
   }
 
   /**
@@ -44,16 +42,16 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
 
   @Override
   public String getText() {
-    return helloText;
+    return byeText;
   }
 
   @Override
-  public String getSayHelloLabel() {
-    return sayHelloLabel;
+  public String getSayByeLabel() {
+    return sayByeLabel;
   }
 
   @Override
-  public String getGoToByeLabel() {
-    return goToByeLabel;
+  public String getBackToHelloLabel() {
+    return backToHelloLabel;
   }
 }
