@@ -2,6 +2,7 @@ package es.ulpgc.eite.clean.mvp.dummy.hello;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -104,7 +105,8 @@ public class HelloView
 
   @Override
   public void showProgressBar() {
-     progressBar.setVisibility(View.VISIBLE);
+    Log.d("View", "showing progress bar");
+    progressBar.setVisibility(View.VISIBLE);
     }
 
   @Override

@@ -10,7 +10,6 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
   private String helloText;
   private String sayHelloLabel;
   private String goToByeLabel;
-  private String msgText;
 
   /**
    * Method that recovers a reference to the PRESENTER

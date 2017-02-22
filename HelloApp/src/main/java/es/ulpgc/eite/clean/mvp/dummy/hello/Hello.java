@@ -1,4 +1,4 @@
-package es.ulpgc.eite.clean.mvp.dummy.bye;
+package es.ulpgc.eite.clean.mvp.dummy.hello;
 
 import android.content.Context;
 
@@ -10,25 +10,27 @@ import es.ulpgc.eite.clean.mvp.Presenter;
  * Created by Luis on 12/11/16.
  */
 
-public interface Bye {
+public interface Hello {
 
 
   ///////////////////////////////////////////////////////////////////////////////////
   // State /////////////////////////////////////////////////////////////////////////
 
-  interface ToBye {
+  interface ToHello {
     void onScreenStarted();
     void setToolbarVisibility(boolean visible);
     void setTextVisibility(boolean visible);
     void setProgressBarVisibility(boolean visible);
+    void setStateText(String text);
   }
 
-  interface ByeTo {
+  interface HelloToBye {
     Context getManagedContext();
     void destroyView();
     boolean isToolbarVisible();
     boolean isTextVisible();
     boolean isProgressBarVisible();
+    String getStateText();
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -38,8 +40,8 @@ public interface Bye {
    * Methods offered to VIEW to communicate with PRESENTER
    */
   interface ViewToPresenter extends Presenter<PresenterToView> {
-    void onSayByeBtnClicked() ;
-    void onBackToHelloBtnClicked();
+    void onSayHelloBtnClicked();
+    void onGoToByeBtnClicked();
   }
 
   /**
@@ -53,8 +55,8 @@ public interface Bye {
     void hideText();
     void showText();
     void setText(String txt);
-    void setSayByeLabel(String txt);
-    void setBackToHelloLabel(String txt);
+    void setSayHelloLabel(String txt);
+    void setGoToByeLabel(String txt);
   }
 
   /**
@@ -62,8 +64,8 @@ public interface Bye {
    */
   interface PresenterToModel extends Model<ModelToPresenter> {
     String getText();
-    String getSayByeLabel();
-    String getBackToHelloLabel();
+    String getSayHelloLabel();
+    String getGoToByeLabel();
   }
 
   /**

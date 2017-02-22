@@ -13,6 +13,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="es.ulpgc.eite.clean.mvp.dummy.bye.ByeView"
     tools:showIn="@layout/activity_bye">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -64,4 +68,5 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textAlignment="center"/>
     </LinearLayout>
+    </FrameLayout>
 </RelativeLayout>

@@ -2,25 +2,25 @@ package es.ulpgc.eite.clean.mvp.dummy.hello;
 
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import es.ulpgc.eite.clean.mvp.ContextView;
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.GenericPresenter;
-import es.ulpgc.eite.clean.mvp.dummy.app.App;
 import es.ulpgc.eite.clean.mvp.dummy.app.Mediator;
 import es.ulpgc.eite.clean.mvp.dummy.app.Navigator;
-import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
 
 public class HelloPresenter extends GenericPresenter
     <Hello.PresenterToView, Hello.PresenterToModel, Hello.ModelToPresenter, HelloModel>
-    implements Hello.ViewToPresenter, Hello.ModelToPresenter, Hello.HelloTo, Hello.ToHello {
+    implements Hello.ViewToPresenter, Hello.ModelToPresenter, Hello.HelloToBye, Hello.ToHello {
 
 
   private boolean toolbarVisible;
   private boolean buttonClicked;
   private boolean textVisible;
   private boolean progressBarVisible;
+  private String text;
 
   /**
    * Operation called during VIEW creation in {@link GenericActivity#onResume(Class, Object)}
@@ -56,13 +56,14 @@ public class HelloPresenter extends GenericPresenter
     if(configurationChangeOccurred()) {
       getView().setSayHelloLabel(getModel().getSayHelloLabel());
       getView().setGoToByeLabel(getModel().getGoToByeLabel());
+      getView().setText(text);
 
       checkToolbarVisibility();
       checkTextVisibility();
       checkProgressBarVisibility();
 
       if (buttonClicked) {
-        getView().setText(getModel().getText());
+        getView().setText(text);
       }
     }
   }
@@ -98,13 +99,27 @@ public class HelloPresenter extends GenericPresenter
   public void onSayHelloBtnClicked() {
     Log.d(TAG, "calling onSayHelloBtnClicked()");
     if(isViewRunning()) {
-      getView().setText(getModel().getText());
-      textVisible = true;
       buttonClicked = true;
-      progressBarVisible = false;
+      text = getModel().getText();
+      new CountDownTimer(3000, 1000) {
+
+        public void onTick(long millisUntilFinished) {
+          progressBarVisible = true;
+          textVisible = false;
+          checkProgressBarVisibility();
+          checkTextVisibility();
+        }
+
+        public void onFinish() {
+          progressBarVisible = false;
+          getView().setText(text);
+          textVisible = true;
+          checkProgressBarVisibility();
+          checkTextVisibility();
+          Log.d("Test", text);
+        }
+      }.start();
     }
-    checkProgressBarVisibility();
-    checkTextVisibility();
   }
 
   @Override
@@ -124,6 +139,10 @@ public class HelloPresenter extends GenericPresenter
     if(isViewRunning()) {
       getView().setSayHelloLabel(getModel().getSayHelloLabel());
       getView().setGoToByeLabel(getModel().getGoToByeLabel());
+      getView().setText(text);
+      if(text != null) {
+        setTextVisibility(true);
+      }
     }
     checkToolbarVisibility();
     checkTextVisibility();
@@ -145,6 +164,9 @@ public class HelloPresenter extends GenericPresenter
     textVisible = visible;
   }
 
+  public void setStateText(String text) {
+    this.text = text;
+  }
 
   ///////////////////////////////////////////////////////////////////////////////////
   // Bye To //////////////////////////////////////////////////////////////////////
@@ -169,6 +191,11 @@ public class HelloPresenter extends GenericPresenter
   @Override
   public boolean isProgressBarVisible() {
     return progressBarVisible;
+  }
+
+  @Override
+  public String getStateText() {
+    return text;
   }
 
   @Override
@@ -210,4 +237,16 @@ public class HelloPresenter extends GenericPresenter
     }
   }
 
+  public void startProgressBar() {
+    new CountDownTimer(3000, 1000) {
+
+      public void onTick(long millisUntilFinished) {
+        getView().showProgressBar();
+      }
+
+      public void onFinish() {
+        getView().hideProgressBar();
+      }
+    }.start();
+  }
 }
